@@ -1,11 +1,25 @@
 package com.betha.admin.model;
 
+import javax.persistence.*;
+
+@Entity
 public class Conta {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
+
+    @Column
     private String nome;
+
+    @ManyToOne
+    @JoinColumn(name = "i_balanco")
     private Balanco balanco;
+
+    @Column
     private TipoConta tipoConta;
+
+    @Column
     private String descricao;
 
     public Conta(int id, String nome, Balanco balanco, TipoConta tipoConta, String descricao) {

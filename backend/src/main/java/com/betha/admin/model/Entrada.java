@@ -1,9 +1,13 @@
 package com.betha.admin.model;
 
+import javax.persistence.*;
 import java.time.LocalDate;
 
+@Entity
 public class Entrada extends Transacao{
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
     public Entrada(LocalDate data, Double valor, TipoTransacao tipoTransacao, String descricao, int id) {

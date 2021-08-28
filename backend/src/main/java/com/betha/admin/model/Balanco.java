@@ -1,13 +1,27 @@
 package com.betha.admin.model;
 
+import javax.persistence.*;
 import java.time.LocalDate;
 
+@Entity
 public class Balanco {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
+
+    @Column
     private LocalDate data;
+
+    @Column
     private Double balanco;
+
+    @ManyToOne
+    @JoinColumn(name = "i_entrada")
     private Entrada entrada;
+
+    @ManyToOne
+    @JoinColumn(name = "i_saida")
     private Saida saida;
 
     public Balanco(int id, LocalDate data, Double balanco, Entrada entrada, Saida saida) {

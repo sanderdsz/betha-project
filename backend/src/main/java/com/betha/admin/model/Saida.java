@@ -1,21 +1,34 @@
 package com.betha.admin.model;
 
+import com.betha.admin.repository.SaidaRepository;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.time.LocalDate;
 
+@Entity
 public class Saida extends Transacao{
 
-    private int id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
-    public Saida(LocalDate data, Double valor, TipoTransacao tipoTransacao, String descricao, int id) {
+    protected Saida() {}
+
+    public Saida(LocalDate data, Double valor, TipoTransacao tipoTransacao, String descricao) {
         super(data, valor, tipoTransacao, descricao);
-        this.id = id;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    @Override
+    public String toString() {
+        return "Saida{" +
+                "id=" + id +
+                '}';
     }
 }

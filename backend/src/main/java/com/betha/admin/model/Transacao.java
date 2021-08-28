@@ -1,13 +1,26 @@
 package com.betha.admin.model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.MappedSuperclass;
 import java.time.LocalDate;
 
+@MappedSuperclass
 public class Transacao {
 
+    @Column
     private LocalDate data;
+
+    @Column
     private Double valor;
+
+    @Column
     private TipoTransacao tipoTransacao;
+
+    @Column
     private String descricao;
+
+    public Transacao() {}
 
     public Transacao(LocalDate data, Double valor, TipoTransacao tipoTransacao, String descricao) {
         this.data = data;

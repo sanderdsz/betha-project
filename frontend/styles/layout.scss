@@ -1,0 +1,16 @@
+.layout--container {
+  display: flex;
+}
+
+.layout--sidebar {
+  width: 20%;
+  padding-right: 1rem;
+}
+
+.layout--main {
+  /* Take the remaining width */
+  flex: 1;
+
+  /* Make it scrollable */
+  overflow: auto;
+}

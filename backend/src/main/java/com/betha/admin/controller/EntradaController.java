@@ -1,7 +1,7 @@
 package com.betha.admin.controller;
 
-import com.betha.admin.model.Saida;
-import com.betha.admin.repository.SaidaRepository;
+import com.betha.admin.model.Entrada;
+import com.betha.admin.repository.EntradaRepository;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -13,15 +13,15 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/saidas")
-public class SaidaController {
+@RequestMapping("/entradas")
+public class EntradaController {
 
     @Autowired
-    private SaidaRepository saidaRepository;
+    private EntradaRepository entradaRepository;
 
     @GetMapping("/{id}")
-    public ResponseEntity<Saida> findById(@PathVariable long id) {
-        Saida entity = saidaRepository.findById(id);
+    public ResponseEntity<Entrada> findById(@PathVariable long id) {
+        Entrada entity = entradaRepository.findById(id);
         if (entity != null) {
             return ResponseEntity.ok(entity);
         }
@@ -29,37 +29,36 @@ public class SaidaController {
     }
 
     @GetMapping
-    public List<Saida> findAll() {
-        return saidaRepository.findAll();
+    public List<Entrada> findAll() {
+        return entradaRepository.findAll();
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Saida save(@RequestBody Saida saida) {
-        return saidaRepository.save(saida);
+    public Entrada save(@RequestBody Entrada entrada) {
+        return entradaRepository.save(entrada);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Saida> update(
+    public ResponseEntity<Entrada> update(
             @PathVariable long id,
-            @RequestBody Saida saida
+            @RequestBody Entrada entrada
     ) {
-        Saida entity = saidaRepository.findById(id);
+        Entrada entity = entradaRepository.findById(id);
         if (entity != null) {
-            // Copia os valores que estao chegando para um novo objeto
-            BeanUtils.copyProperties(saida, entity, "id");
-            entity = saidaRepository.save(saida);
-            return ResponseEntity.ok(entity);
+            BeanUtils.copyProperties(entrada, entity, "id");
+            entradaRepository.save(entrada);
+            return ResponseEntity.ok(entrada);
         }
         return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Saida> delete(@PathVariable long id) {
+    public ResponseEntity<Entrada> delete(@PathVariable long id) {
         try {
-            Saida entity = saidaRepository.findById(id);
+            Entrada entity = entradaRepository.findById(id);
             if (entity != null) {
-                saidaRepository.delete(entity);
+                entradaRepository.delete(entity);
                 return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
             }
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
@@ -67,5 +66,4 @@ public class SaidaController {
             return ResponseEntity.status(HttpStatus.CONFLICT).build();
         }
     }
-
 }

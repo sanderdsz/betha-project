@@ -8,7 +8,7 @@ public class Balanco {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    private Long id;
 
     @Column
     private LocalDate data;
@@ -24,7 +24,9 @@ public class Balanco {
     @JoinColumn(name = "i_saida")
     private Saida saida;
 
-    public Balanco(int id, LocalDate data, Double balanco, Entrada entrada, Saida saida) {
+    protected Balanco() {}
+
+    public Balanco(Long id, LocalDate data, Double balanco, Entrada entrada, Saida saida) {
         this.id = id;
         this.data = data;
         this.balanco = balanco;
@@ -32,11 +34,11 @@ public class Balanco {
         this.saida = saida;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

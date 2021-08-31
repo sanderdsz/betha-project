@@ -12,4 +12,10 @@ public interface SaidaRepository extends CrudRepository<Saida, Long> {
 
     Saida findById(long id);
 
+    @Override
+    Saida save(Saida saida);
+
+    @Override
+    void delete(Saida saida);
+
 }

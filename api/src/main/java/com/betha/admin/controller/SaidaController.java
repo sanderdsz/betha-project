@@ -2,6 +2,7 @@ package com.betha.admin.controller;
 
 import com.betha.admin.model.Saida;
 import com.betha.admin.repository.SaidaRepository;
+import com.betha.admin.service.SaidaService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -11,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/saidas")
@@ -19,11 +21,14 @@ public class SaidaController {
     @Autowired
     private SaidaRepository saidaRepository;
 
+    @Autowired
+    private SaidaService service;
+
     @GetMapping("/{id}")
     public ResponseEntity<Saida> findById(@PathVariable long id) {
-        Saida entity = saidaRepository.findById(id);
-        if (entity != null) {
-            return ResponseEntity.ok(entity);
+        Optional<Saida> entity = saidaRepository.findById(id);
+        if (entity.isPresent()) {
+            return ResponseEntity.ok(entity.get());
         }
         return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
@@ -33,10 +38,20 @@ public class SaidaController {
         return saidaRepository.findAll();
     }
 
+    @GetMapping("/descricao")
+    public List<Saida> findByDescricao(String descricao) {
+        return saidaRepository.findByDescricao(descricao);
+    }
+
+    @GetMapping("/descricao-contains")
+    public List<Saida> findAllByDescricaoContaining(String descricao) {
+        return saidaRepository.findAllByDescricaoContaining(descricao);
+    }
+
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Saida save(@RequestBody Saida saida) {
-        return saidaRepository.save(saida);
+        return service.salvar(saida);
     }
 
     @PutMapping("/{id}")
@@ -44,12 +59,12 @@ public class SaidaController {
             @PathVariable long id,
             @RequestBody Saida saida
     ) {
-        Saida entity = saidaRepository.findById(id);
+        Optional<Saida> entity = saidaRepository.findById(id);
         if (entity != null) {
             // Copia os valores que estao chegando para um novo objeto
             BeanUtils.copyProperties(saida, entity, "id");
-            entity = saidaRepository.save(saida);
-            return ResponseEntity.ok(entity);
+            Saida savedEntity = service.salvar(saida);
+            return ResponseEntity.ok(entity.get());
         }
         return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
@@ -57,9 +72,9 @@ public class SaidaController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Saida> delete(@PathVariable long id) {
         try {
-            Saida entity = saidaRepository.findById(id);
+            Optional<Saida> entity = saidaRepository.findById(id);
             if (entity != null) {
-                saidaRepository.delete(entity);
+                saidaRepository.delete(entity.get());
                 return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
             }
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();

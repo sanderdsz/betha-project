@@ -3,6 +3,7 @@ package com.betha.admin.controller;
 import com.betha.admin.model.Balanco;
 import com.betha.admin.model.Entrada;
 import com.betha.admin.repository.BalancoRepository;
+import com.betha.admin.service.BalancoService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/balancos")
@@ -21,6 +23,9 @@ public class BalancoController {
 
     @Autowired
     private BalancoRepository balancoRepository;
+
+    @Autowired
+    private BalancoService balancoService;
 
     @GetMapping
     public List<Balanco> findAll() {
@@ -35,29 +40,29 @@ public class BalancoController {
 
     @PutMapping("/{id}")
     public ResponseEntity<Balanco> update(
-            @PathVariable long id,
+            @PathVariable Long id,
             @RequestBody Balanco balanco
     ) {
-        Balanco entity = balancoRepository.findById(id);
-        if (entity != null) {
-            BeanUtils.copyProperties(balanco, entity, "id");
-            balancoRepository.save(balanco);
-            return ResponseEntity.ok(balanco);
+        Optional<Balanco> entity = balancoRepository.findById(id);
+        if (entity.isPresent()) {
+            BeanUtils.copyProperties(balanco, entity.get(), "id");
+            balancoRepository.save(entity.get());
+            return ResponseEntity.ok(entity.get());
         }
         return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
 
     @PatchMapping("/{id}")
     public ResponseEntity<Balanco> parcialUpdate(
-            @PathVariable long id,
+            @PathVariable Long id,
             @RequestBody Map<String, Object> campos
     ) {
-        Balanco balancoAtual = balancoRepository.findById(id);
-        if (balancoAtual == null) {
+        Optional<Balanco> balancoAtual = balancoRepository.findById(id);
+        if (balancoAtual.isPresent()) {
             return ResponseEntity.notFound().build();
         }
-        merge(campos, balancoAtual);
-        return update(id, balancoAtual);
+        merge(campos, balancoAtual.get());
+        return update(id, balancoAtual.get());
     }
 
     private void merge(Map<String, Object> dadosOrigem, Balanco balancoDestino) {

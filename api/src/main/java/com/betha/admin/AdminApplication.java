@@ -11,7 +11,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.context.annotation.Bean;
 
+import javax.swing.text.html.Option;
 import java.time.LocalDate;
+import java.util.Optional;
 
 @SpringBootApplication
 @EnableEurekaClient
@@ -33,7 +35,7 @@ public class AdminApplication {
                 log.info(saida.toString());
             }
             log.info("FIND BY ID (1L)");
-            Saida saida = repository.findById(1L);
+            Optional<Saida> saida = repository.findById(1L);
             log.info(saida.toString());
         });
     }

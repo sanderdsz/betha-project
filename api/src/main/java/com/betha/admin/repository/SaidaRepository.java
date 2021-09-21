@@ -1,21 +1,18 @@
 package com.betha.admin.repository;
 
 import com.betha.admin.model.Saida;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-public interface SaidaRepository extends CrudRepository<Saida, Long> {
+@Repository
+public interface SaidaRepository extends JpaRepository<Saida, Long> {
 
-    @Override
-    List<Saida> findAll();
+    List<Saida> findAllByDescricaoContaining(String descricao);
 
-    Saida findById(long id);
+    List<Saida> findByDescricao(String descricao);
 
-    @Override
-    Saida save(Saida saida);
-
-    @Override
-    void delete(Saida saida);
 
 }

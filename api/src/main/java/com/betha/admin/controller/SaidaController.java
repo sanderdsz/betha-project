@@ -2,6 +2,7 @@ package com.betha.admin.controller;
 
 import com.betha.admin.model.Saida;
 import com.betha.admin.repository.SaidaRepository;
+import com.betha.admin.resources.SaidaDto;
 import com.betha.admin.service.SaidaService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/saidas")
@@ -34,8 +36,11 @@ public class SaidaController {
     }
 
     @GetMapping
-    public List<Saida> findAll() {
-        return saidaRepository.findAll();
+    public List<SaidaDto> findAll() {
+        return saidaRepository.findAll()
+                .stream()
+                .map(c -> SaidaDto.toDTO(c))
+                .collect(Collectors.toList());
     }
 
     @GetMapping("/descricao")

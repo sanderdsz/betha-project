@@ -15,7 +15,7 @@ public class Saida extends Transacao{
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    protected Saida() {}
+    public Saida() {}
 
     public Saida(LocalDate data, Double valor, TipoTransacao tipoTransacao, String descricao) {
         super(data, valor, tipoTransacao, descricao);

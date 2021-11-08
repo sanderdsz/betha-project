@@ -1,22 +1,26 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <router-view class="content"></router-view>
+  <router-view class="navbar" name="navbar"></router-view>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
 export default {
   name: 'App',
-  components: {
-    HelloWorld
-  }
+  beforeMount() {
+    this.$store.dispatch("initTheme");
+  },
 }
 </script>
 
 <style>
-#app {
-  background: primary;
+.content {
+  height: 100vh;
+  z-index: 0;
 }
-
+.navbar {
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+  z-index: 10;
+}
 </style>

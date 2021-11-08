@@ -25,6 +25,7 @@ public class AdminApplication {
         SpringApplication.run(AdminApplication.class, args);
     }
 
+    /*
     @Bean
     public CommandLineRunner demo(SaidaRepository repository) {
         LocalDate date = LocalDate.now();
@@ -39,5 +40,6 @@ public class AdminApplication {
             log.info(saida.toString());
         });
     }
+     */
 
 }

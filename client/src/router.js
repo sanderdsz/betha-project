@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import First from './views/First.vue'
-import Second from './views/Second.vue'
+import HelloWorld from './components/HelloWorld.vue'
+import Home from './views/Home.vue'
 
 export const router = createRouter({
   history: createWebHistory(),
@@ -8,15 +8,8 @@ export const router = createRouter({
     {
       path: '/',
       components: {
-        default: First,
-        navbar: Second
-      }
-    },
-    {
-      path: '/login',
-      components: {
-        default: First,
-        navbar: Second
+        default: Home,
+        navbar: HelloWorld
       }
     }
   ]

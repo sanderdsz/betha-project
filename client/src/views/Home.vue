@@ -1,5 +1,14 @@
 <template>
-  world
+  <div class='container'>
+    <h1>This is the home router</h1>
+    <h1>This is the home router</h1><h1>This is the home router</h1>
+    <h1>This is the home router</h1>
+    <h1>This is the home router</h1>
+    <h1>This is the home router</h1>
+    <h1>This is the home router</h1>
+    <h1>This is the home router</h1>
+    <h1>This is the home router</h1>
+  </div>
 </template>
 
 <script>
@@ -9,5 +18,7 @@ export default {
 </script>
 
 <style scoped>
-
+.container {
+  height: 100vw;
+}
 </style>

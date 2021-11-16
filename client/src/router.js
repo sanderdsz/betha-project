@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HelloWorld from './components/HelloWorld.vue'
+import Navigation from './components/Navigation.vue'
 import Home from './views/Home.vue'
 
 export const router = createRouter({
@@ -9,7 +9,7 @@ export const router = createRouter({
       path: '/',
       components: {
         default: Home,
-        navbar: HelloWorld
+        navbar: Navigation
       }
     }
   ]

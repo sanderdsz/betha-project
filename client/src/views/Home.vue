@@ -1,13 +1,8 @@
 <template>
-  <div class='container'>
-    <h1>This is the home router</h1>
-    <h1>This is the home router</h1><h1>This is the home router</h1>
-    <h1>This is the home router</h1>
-    <h1>This is the home router</h1>
-    <h1>This is the home router</h1>
-    <h1>This is the home router</h1>
-    <h1>This is the home router</h1>
-    <h1>This is the home router</h1>
+  <div class="container">
+    <h1>hi from home</h1>
+    <router-link to="/world">to world</router-link>
+    <router-view></router-view>
   </div>
 </template>
 

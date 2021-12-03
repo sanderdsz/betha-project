@@ -1,9 +1,11 @@
 <template>
   <div class="container">
+    <!--
     <form v-on:submit.prevent>
       <input v-model="object.data.message">
       <button v-on:click="update">Submit</button>
     </form>
+    -->
     <div v-if="loading">
       <Spinner />
     </div>
@@ -62,6 +64,8 @@ export default {
 
 <style scoped>
 .container {
-  height: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 </style>

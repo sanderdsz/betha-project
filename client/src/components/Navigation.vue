@@ -48,6 +48,6 @@ export default {
 }
 
 a.router-link-exact-active {
-  color: cornflowerblue;
+  color: #1e5d84;
 }
 </style>

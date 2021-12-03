@@ -1,8 +1,9 @@
 @font-face {
-  font-family: rns-sans;
-  src: url(RNSSanz-Normal.woff);
+  font-family: cooper-hewitt-medium;
+  src: url(./fonts/CooperHewitt-Medium.otf);
 }
 
 html {
-  font-family: rns-sans;
+  font-family: cooper-hewitt-medium;
+  color: #1e5d84;
 }

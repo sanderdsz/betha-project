@@ -12,13 +12,17 @@ export default {
 </script>
 
 <style>
-.main {
+:root {
+  --navbar-height: 3.5rem;
 }
-
+.main {
+  height: calc(100vh - var(--navbar-height));
+}
 .navbar {
   position: fixed;
   bottom: 0;
   width: 100%;
+  height: var(--navbar-height);
   margin: 0;
 }
 </style>

@@ -1,9 +1,9 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Navigation from './components/Navigation.vue'
 import Home from './views/Home.vue'
-import Hello from './components/Hello.vue'
-import World from './components/World.vue'
-import Chacha from './components/Chacha.vue'
+// import Default from './views/Default.vue'
+import Incomes from './views/Incomes.vue'
+import Outgoings from './views/Outgoings.vue'
 
 export const router = createRouter({
   history: createWebHistory(),
@@ -14,24 +14,26 @@ export const router = createRouter({
         default: Home,
         navbar: Navigation
       },
+      /*
       children: [
         {
-          path: 'chacha',
-          component: Chacha
+          path: '/home',
+          component: Default
         }
       ]
+      */
     },
     {
-      path: '/hello',
+      path: '/incomes',
       components: {
-        default: Hello,
+        default: Incomes,
         navbar: Navigation
       }
     },
     {
-      path: '/world',
+      path: '/outgoings',
       components: {
-        default: World,
+        default: Outgoings,
         navbar: Navigation
       }
     }

@@ -22,10 +22,10 @@ export default {
   width: 64px;
   height: 64px;
   margin: 8px;
-  border: 8px solid #000000;
+  border: 8px solid #e66c55;
   border-radius: 50%;
   animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
-  border-color: #000000 transparent transparent transparent;
+  border-color: #e66c55 transparent transparent transparent;
 }
 .lds-ring div:nth-child(1) {
   animation-delay: -0.45s;

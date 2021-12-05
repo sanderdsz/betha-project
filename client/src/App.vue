@@ -21,8 +21,9 @@ export default {
 .navbar {
   position: fixed;
   bottom: 0;
+  margin: 0;
+  padding: .25rem 0 0 0;
   width: 100%;
   height: var(--navbar-height);
-  margin: 0;
 }
 </style>

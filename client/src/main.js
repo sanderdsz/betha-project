@@ -4,6 +4,7 @@ import { router } from './router'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faWallet, faHandHoldingUsd, faHome } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import { SetupCalendar, Calendar, DatePicker } from 'v-calendar';
 import './reset.css'
 import './assets/styles.css'
 
@@ -11,5 +12,8 @@ library.add(faHome, faWallet, faHandHoldingUsd);
 
 createApp(App)
   .use(router)
+  .use(SetupCalendar)
   .component("font-awesome-icon", FontAwesomeIcon)
+  .component('Calendar', Calendar)
+  .component('DatePicker', DatePicker)
   .mount('#app')

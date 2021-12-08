@@ -31,13 +31,20 @@ export const router = createRouter({
         default: Incomes,
         navbar: Navigation
       },
+      meta: {
+        module: 'incomes'
+      }
     },
     {
       path: '/incomes/create',
       components: {
         default: IncomeCreate,
-        navbar: Navigation 
+        navbar: Navigation
       },
+      meta: {
+        module: 'incomes',
+        subModule: 'create'
+      }
     },
     {
       path: '/outgoings',

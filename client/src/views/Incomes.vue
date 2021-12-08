@@ -58,7 +58,6 @@ export default {
       const request = await axios.get("http://152.70.211.106:8080/api/incomes")
       .then(response => this.response = response.data.data)
       this.loading = false
-      console.log(this.response)
       return request
     }
   },

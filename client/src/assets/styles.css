@@ -157,3 +157,31 @@ h4 {
   align-items: center;
   justify-content: center;
 }
+.text--blue {
+  color:#1e5d84;
+}
+.container__card {
+  margin-top: 5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.card {
+  font-family: cooper-hewitt-medium;
+  height: 5rem;
+  width: 10rem;
+  background-color: #FCE180;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.card--left {
+  margin-right: 2.5rem;
+}
+.card--right {
+  margin-left: 2.5rem;
+}
+.text--red {
+  color: #e66c55;
+  font-size: 1.5rem;
+}

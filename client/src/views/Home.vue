@@ -50,17 +50,25 @@ export default {
       incomesResponse: {},
       incomesRefactor: {},
       incomesSum: 0,
-      loading: false
+      loading: false,
+      month: ''
     }
   },
   methods: {
     async getIncomes () {
       this.loading = true
+      const dt = new Date()
+      const currentMonth = dt.getMonth() + 1
       const request = await axios.get("http://152.70.211.106:8080/api/incomes")
       .then(response => this.incomesResponse = response.data.data)
       this.incomesRefactor = this.incomesResponse.map(
         function(item) {
-          return item.attributes.value
+          let months = item.attributes.date.split('-')
+          if (months[1] == currentMonth) {
+            return item.attributes.value
+          } else {
+            return null
+          }
         }
       )
       for (let i = 0; i < this.incomesRefactor.length; i++) {

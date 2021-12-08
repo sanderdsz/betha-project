@@ -5,7 +5,7 @@ import Home from './views/Home.vue'
 import Incomes from './views/Incomes.vue'
 import IncomeCreate from './views/IncomeCreate.vue'
 import Outgoings from './views/Outgoings.vue'
-// import OutgoingCreate from './views/OutgoingCreate.vue'
+import OutgoingsCreate from './views/OutgoingsCreate.vue'
 
 export const router = createRouter({
   history: createWebHistory(),
@@ -51,6 +51,17 @@ export const router = createRouter({
       components: {
         default: Outgoings,
         navbar: Navigation
+      }
+    },
+    {
+      path: '/outgoings/create',
+      components: {
+        default: OutgoingsCreate,
+        navbar: Navigation
+      },
+      meta: {
+        module: 'outgoings',
+        subModule: 'create'
       }
     }
   ]

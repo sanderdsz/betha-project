@@ -1,5 +1,5 @@
 <template>
-  <div> 
+  <div class='force-view'> 
     <router-view class="main"></router-view>
     <router-view class="navbar" name="navbar"></router-view>  
   </div>

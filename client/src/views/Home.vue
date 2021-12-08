@@ -28,8 +28,17 @@
             <h2 class='text--blue'>Expenses</h2>
           </div>
           <div class='card card--right text--red'>
-            R$ {{ incomesSum }}
+            R$ {{ expensesSum }}
           </div>
+        </div>
+      </div>
+      <div class='total'>
+        <div class='total--left'>
+          <div class='total__dollar'>R$</div>
+          <span class='total__sum'>{{ balance }}</span>
+        </div>
+        <div class='total--right'>
+          <h3 class='total__label'>your balance</h3>
         </div>
       </div>
     </div>
@@ -50,6 +59,10 @@ export default {
       incomesResponse: {},
       incomesRefactor: {},
       incomesSum: 0,
+      expensesResponse: {},
+      expensesRefactor: {},
+      expensesSum: 0,
+      balance: 0,
       loading: false,
       month: ''
     }
@@ -76,6 +89,32 @@ export default {
       }
       this.loading = false
       return request
+    },
+    async getExpenses () {
+      this.loading = true
+      const dt = new Date()
+      const currentMonth = dt.getMonth() + 1
+      const request = await axios.get("http://152.70.211.106:8080/api/outgoings")
+      .then(response => this.expensesResponse = response.data.data)
+      this.expensesRefactor = this.expensesResponse.map(
+        function(item) {
+          let months = item.attributes.date.split('-')
+          if (months[1] == currentMonth) {
+            return item.attributes.value
+          } else {
+            return null
+          }
+        }
+      )
+      for (let i = 0; i < this.expensesRefactor.length; i++) {
+        this.expensesSum += this.expensesRefactor[i]
+      }
+      this.balance = this.expensesSum - this.incomesSum
+      this.loading = false
+      return request
+    },
+    getBalance () {
+      this.balance = this.expensesSum - this.incomesSum
     }
   },
   computed: {
@@ -85,6 +124,8 @@ export default {
   },
   created () {
     this.getIncomes()
+    this.getExpenses()
+    this.getBalance()
   },
   mounted () {
   }
@@ -108,7 +149,42 @@ export default {
   background-color: #F7F5F3;
 }
 .container__wrapper--center {
-  margin: 2rem 0 0 0;
+  margin: 1rem 0 0 0;
   text-align: center;
+}
+.total {
+  padding-top: 1.5rem;
+  padding-bottom: 4rem;
+  bottom: 0;
+  width: 100%;
+  margin: 3rem 0 0 0;
+  height: 5rem;
+  background: linear-gradient(-60deg, #f2c4c4 50%, #e66c55 50%);
+}
+.total--left {
+  padding: 0 0 0 1rem;
+  display: flex;
+}
+.total--right {
+  padding: 0 0 0 13rem;
+}
+.total__dollar {
+  font-family: cooper-hewitt-medium;
+  color: #fff;
+  font-size: 1rem;
+  text-shadow: 0.2rem 0.2rem 0 #1e5d84;
+}
+.total__sum {
+  width: 5rem;
+  font-family: cooper-hewitt-medium;
+  color: #fff;
+  font-size: 2.5rem;
+  text-shadow: 0.2rem 0.2rem 0 #1e5d84;
+}
+.total__label {
+  margin-top: 1rem;
+  font-size: 2rem;
+  color: #1e5d84;
+  text-shadow: 0.2rem 0.2rem 0 #fff;
 }
 </style>

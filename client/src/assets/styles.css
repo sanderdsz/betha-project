@@ -45,7 +45,7 @@ h4 {
   background-color: #fbf8e9;
 }
 .container__footer {
-  padding-bottom: 5rem;
+  padding-bottom: 6.5rem;
   background-color: #f0f0f0;
 }
 .container__footer--right {
@@ -133,6 +133,7 @@ h4 {
   color: #fff;
 }
 .background-color--gray {
+  height: 100%;
   background-color: #f0f0f0;
 }
 .list {
@@ -151,6 +152,7 @@ h4 {
   margin: 1rem;
 }
 .spinner {
+  height: 50vh;
   display: flex;
   align-items: center;
   justify-content: center;

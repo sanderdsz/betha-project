@@ -5,31 +5,33 @@
         Incomes
       </h1>
     </div>
-    <div class='container__body'>
-      <div class='spinner' v-if="loading">
-        <Spinner />
-      </div>
-      <div v-else>
-        <ul>
-          <li v-for="item in response" :key="item.attributes.value">
-            <div class='list'>
-              <div class='list__icon'>
-                <font-awesome-icon :icon="['fas', 'money-bill-wave']" size="lg" />
-              </div>
-              <div class='list__wrapper'>
-                <div class='list__header'>
-                  <span>{{ item.attributes.date }}</span>
-                </div>
-                <span>R$ {{ item.attributes.value }}</span>
-              </div>
-            </div>
-          </li>
-        </ul>
-      </div>
+    <div class='spinner' v-if="loading">
+      <Spinner />
     </div>
-    <div class='container__footer'>
-      <div class='container__footer--right'>
-        <router-link class='button button--red' to='/incomes/create'>create</router-link>
+    <div v-else >
+      <div class='container__body'>
+        <div>
+          <ul>
+            <li v-for="item in response" :key="item.attributes.value">
+              <div class='list'>
+                <div class='list__icon'>
+                  <font-awesome-icon :icon="['fas', 'money-bill-wave']" size="lg" />
+                </div>
+                <div class='list__wrapper'>
+                  <div class='list__header'>
+                    <span>{{ item.attributes.date }}</span>
+                  </div>
+                  <span>R$ {{ item.attributes.value }}</span>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class='container__footer'>
+        <div class='container__footer--right'>
+          <router-link class='button button--red' to='/incomes/create'>create</router-link>
+        </div>
       </div>
     </div>
   </div>
@@ -81,7 +83,7 @@ span {
 .container__title {
   width: 100%;
   background-image: url('../assets/images/yellow-underline.svg');
-  background-size: 45% 0.3rem;
+  background-size: 35% 0.3rem;
   color: #fff;
   background-position: center bottom;
 }

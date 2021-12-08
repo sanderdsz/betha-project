@@ -7,17 +7,17 @@
       </div>
     </router-link>
     <br>
-    <router-link class="nav__item" to="/incomes" :class="{'active': isActive}">
+    <router-link class="nav__item" to="/incomes" :class="{'active': isActiveIncomes}">
       <div class="nav__children">
         <font-awesome-icon :icon="['fas', 'wallet']" size="lg" />
         <span class="nav__title" >Incomes</span>
       </div>
     </router-link>
     <br>
-    <router-link class="nav__item" to="/outgoings">
+    <router-link class="nav__item" to="/outgoings" :class="{'active': isActiveOutgoings}">
       <div class="nav__children">
         <font-awesome-icon :icon="['fas', 'hand-holding-usd']" size="lg" />
-        <span class="nav__title">Outgoings</span>
+        <span class="nav__title">Expenses</span>
       </div>
     </router-link>
   </div>
@@ -27,20 +27,25 @@
 export default {
   name: 'Navigation',
   computed: {
-    isActive() {
+    isActiveIncomes() {
      if (this.$route.matched[0].path === '/incomes' ||
         this.$route.matched[0].path === '/incomes/create'
       ) {
        return true
-     } if (        
-       this.$route.matched[0].path === '/outgoings' ||
-       this.$route.matched[0].path === '/outgoings/create'
-      ) {
-        return true
-      } else {
-       return console.log(this.$route)
+     } else {
+       return false
      }
    },
+   isActiveOutgoings() {
+     if (
+       this.$route.matched[0].path === '/outgoings' ||
+       this.$route.matched[0].path === '/outgoings/create'
+     ) {
+       return true
+     } else {
+       return false
+     }
+    }
   }
 }
 </script>

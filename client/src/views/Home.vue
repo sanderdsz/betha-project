@@ -112,9 +112,6 @@ export default {
       this.balance = this.expensesSum - this.incomesSum
       this.loading = false
       return request
-    },
-    getBalance () {
-      this.balance = this.expensesSum - this.incomesSum
     }
   },
   computed: {
@@ -122,10 +119,9 @@ export default {
       return this.response.message
     }
   },
-  created () {
-    this.getIncomes()
-    this.getExpenses()
-    this.getBalance()
+  async created () {
+    await this.getIncomes()
+    await this.getExpenses()
   },
   mounted () {
   }

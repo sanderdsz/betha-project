@@ -48,6 +48,7 @@ export const router = createRouter({
     },
     {
       path: '/outgoings',
+      name: 'Outgoings',
       components: {
         default: Outgoings,
         navbar: Navigation

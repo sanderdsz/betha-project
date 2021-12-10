@@ -12,7 +12,7 @@
       <div class='container__body'>
         <div>
           <ul>
-            <li v-for="item in response" :key="item.attributes.value">
+            <li v-for="item in expenses" :key="item.attributes.value">
               <div class='list'>
                 <div class='list__icon'>
                   <div v-show='item.attributes.transactionType === "housing"'>
@@ -52,6 +52,12 @@
             </li>
           </ul>
         </div>
+        <div class='container__pagination'>
+          <button class='button button--red' @click.prevent='goToPreviousPage'>Previous</button>
+          <div class='container__pagination--right'>
+            <button class='button button--red' @click.prevent='goToFowardPage'>Forward</button>
+          </div>
+        </div>
       </div>
       <div class='container__footer'>
         <div class='container__footer--right'>
@@ -73,7 +79,12 @@ export default {
   },
   data () {
     return {
-      response: {},
+      expenses: {},
+      page: 1, 
+      pageCount: 0,
+      total: 0,
+      pageSize: 5,
+      enterCurrentPage: '',
       loading: false
     }
   },
@@ -85,10 +96,28 @@ export default {
   methods: {
    async getIncomes () {
       this.loading = true
-      const request = await axios.get("http://152.70.211.106:8080/api/outgoings?sort=date:desc")
-      .then(response => this.response = response.data.data)
+      const request = await axios.get(`http://152.70.211.106:8080/api/outgoings?pagination[page]=${this.page}&pagination[pageSize]=${this.pageSize}&sort=date:desc`)
+      .then(response => { 
+        this.expenses = response.data.data  
+        this.total = response.data.meta.pagination.total
+        this.pageCount = response.data.meta.pagination.pageCount
+        }
+      )
       this.loading = false
       return request
+    },
+    goToPreviousPage () {
+      if (this.page !== 1) {
+        this.page = this.page - 1
+        this.getIncomes()
+      }
+    },
+    goToFowardPage () {
+      if (this.page === this.pageCount) {
+        return null
+      }
+      this.page = this.page + 1
+      this.getIncomes()
     }
   },
   created () {

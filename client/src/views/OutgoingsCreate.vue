@@ -47,6 +47,7 @@
 <script>
 // import { DatePicker } from 'v-calendar'
 import axios from 'axios' 
+import router from '../router'
 
 export default {
   name: 'OutgoingsCreate',
@@ -62,7 +63,11 @@ export default {
     async update() {
       await axios.post("http://152.70.211.106:8080/api/outgoings", 
         { data: { value: this.value, transactionType: this.transactionType, date: this.date }}
-      )
+      ).then(response => { 
+        router.push({path: '/outgoings'})
+        console.log(this.$route)
+        return response
+        })
     }
   }
 }

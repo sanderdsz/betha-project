@@ -84,7 +84,6 @@ export default {
       pageCount: 0,
       total: 0,
       pageSize: 5,
-      enterCurrentPage: '',
       loading: false
     }
   },

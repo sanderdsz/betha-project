@@ -59,6 +59,14 @@ export default {
       incomesResponse: {},
       incomesRefactor: {},
       incomesSum: 0,
+      expenses: {},
+      personalExpenses: {},
+      healthExpenses: {},
+      feedingExpenses: {},
+      leisureExpenses: {},
+      housingExpenses: {},
+      shoppingExpenses: {},
+      transportationExpenses: {},
       expensesResponse: {},
       expensesRefactor: {},
       expensesSum: 0,
@@ -112,6 +120,52 @@ export default {
       this.balance = this.incomesSum - this.expensesSum 
       this.loading = false
       return request
+    },
+    async getExpensesAndFilter () {
+      const today = new Date()
+      const lastDayOfMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0).toISOString().split('T')[0]
+      const firstDayOfMonth = new Date(today.getFullYear(), today.getMonth(), 1).toISOString().split('T')[0]
+      await axios.get(`http://152.70.211.106:8080/api/outgoings` + 
+      `?filters[$and][0][date][$gte]=${firstDayOfMonth}` +
+      `&filters[$and][1][date][$lte]=${lastDayOfMonth}`)
+      .then(response => {
+        this.expenses = response.data.data
+        this.shoppingExpenses = this.expenses.filter(this.shoppingFilter)
+        this.transportationExpenses = this.expenses.filter(this.transportationFilter)
+        this.housingExpenses = this.expenses.filter(this.housingFilter)
+        this.leisureExpenses = this.expenses.filter(this.leisureFilter)
+        this.personalExpenses = this.expenses.filter(this.personalFilter)
+        this.healthExpenses = this.expenses.filter(this.healthFilter)
+        this.feedingExpenses = this.expenses.filter(this.feedingFilter)
+        console.log(this.shoppingExpenses)
+        console.log(this.transportationExpenses)
+        console.log(this.housingExpenses)
+        console.log(this.leisureExpenses)
+        console.log(this.personalExpenses)
+        console.log(this.healthExpenses)
+        console.log(this.feedingExpenses)
+      })
+    },
+    shoppingFilter (value) {
+      return value.attributes.transactionType === 'shopping'
+    },
+    transportationFilter (value) {
+      return value.attributes.transactionType === 'transportation'
+    },
+    housingFilter (value) {
+      return value.attributes.transactionType === 'housing'
+    },
+    leisureFilter (value) {
+      return value.attributes.transactionType === 'leisure'
+    },
+    personalFilter (value) {
+      return value.attributes.transactionType === 'personal'
+    },
+    healthFilter (value) {
+      return value.attributes.transactionType === 'health'
+    },
+    feedingFilter (value) {
+      return value.attributes.transactionType === 'feeding'
     }
   },
   computed: {
@@ -122,6 +176,7 @@ export default {
   async created () {
     await this.getIncomes()
     await this.getExpenses()
+    await this.getExpensesAndFilter()
   },
   mounted () {
   }

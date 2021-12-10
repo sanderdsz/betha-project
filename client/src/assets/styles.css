@@ -35,7 +35,7 @@ h4 {
 .container__title {
   width: 15rem;
   color: #1e5d84;
-  background-image: url('../assets/images/blue-underline.svg');
+  /* background-image: url('../assets/images/blue-underline.svg'); */
   background-repeat: no-repeat;
   background-position: left bottom;
   background-size: 80% 0.3rem;
@@ -46,7 +46,7 @@ h4 {
 }
 .container__footer {
   padding-bottom: 6.5rem;
-  background-color: #f0f0f0;
+  background-color: #fbf8e9;
 }
 .container__footer--right {
   padding: 1rem;
@@ -135,6 +135,10 @@ h4 {
 .background-color--gray {
   height: 100%;
   background-color: #f0f0f0;
+}
+.background-color--brown {
+  height: 100%;
+  background-color: #fbf8e9;
 }
 .list {
   font-family: cooper-hewitt-medium;

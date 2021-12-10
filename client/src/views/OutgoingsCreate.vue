@@ -3,12 +3,12 @@
     <form v-on:submit.prevent>
       <div class='container__header'>
         <h2 class='container__title'>
-          Register Income
+          Register Expense
         </h2>
       </div>
       <div class='container__body'>
         <div class='form--value'>
-          <label class='form__label' >Income amount</label>
+          <label class='form__label' >Expense amount</label>
           <input class='form__input--value' placeholder="Value" type="number" v-model='value'>
         </div>
         <div class='container__body--secondary'>
@@ -19,13 +19,18 @@
             <DatePicker mode="date" v-model="date" @input='getDate'/>
           </div>
         </div>
-        <div class='background-color--gray'>
+        <div class='background-color--brown'>
           <div class='form'>
             <label class='form__label'>Transaction type</label>
-            <select class='form__input' v-model='incomeType'>
+            <select class='form__input' v-model='transactionType'>
               <option disabled value="">Choose a type</option>
-              <option value="salary">Salary</option>
-              <option value="transaction">Transaction</option>
+              <option value="feeding">Food</option>
+              <option value="housing">Housing</option>
+              <option value="leisure">Leisure</option>
+              <option value="transportation">Transportation</option>
+              <option value="health">Health</option>
+              <option value="personal">Personal</option>
+              <option value="shopping">Shopping</option>
             </select>
           </div>
         </div>
@@ -44,19 +49,19 @@
 import axios from 'axios' 
 
 export default {
-  name: 'IncomeCreate',
+  name: 'OutgoingsCreate',
   // components: { DatePicker },
   data() {
     return {
       value: '',
-      incomeType: '',
+      transactionType: '',
       date: new Date()
     }
   },
   methods: {
     async update() {
       await axios.post("http://152.70.211.106:8080/api/outgoings", 
-        { data: { value: this.value, incomeType: this.incomeType, date: this.date }}
+        { data: { value: this.value, transactionType: this.transactionType, date: this.date }}
       )
     }
   }

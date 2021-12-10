@@ -19,7 +19,7 @@
             <DatePicker mode="date" v-model="date" @input='getDate'/>
           </div>
         </div>
-        <div class='background-color--gray'>
+        <div class='background-color--brown'>
           <div class='form'>
             <label class='form__label'>Transaction type</label>
             <select class='form__input' v-model='incomeType'>

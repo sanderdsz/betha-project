@@ -85,7 +85,7 @@ export default {
   methods: {
    async getIncomes () {
       this.loading = true
-      const request = await axios.get("http://152.70.211.106:8080/api/outgoings")
+      const request = await axios.get("http://152.70.211.106:8080/api/outgoings?sort=date:desc")
       .then(response => this.response = response.data.data)
       this.loading = false
       return request
@@ -107,6 +107,7 @@ export default {
 .container__title {
   width: 100%;
   background-size: 45% 0.3rem;
+  background-image: url('../assets/images/blue-underline.svg');
   color: #1E5D84;
   background-position: center bottom;
 }

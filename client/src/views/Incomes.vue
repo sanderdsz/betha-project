@@ -55,7 +55,7 @@ export default {
   methods: {
    async getIncomes () {
       this.loading = true
-      const request = await axios.get("http://152.70.211.106:8080/api/incomes")
+      const request = await axios.get("http://152.70.211.106:8080/api/incomes?sort=date:desc")
       .then(response => this.response = response.data.data)
       this.loading = false
       return request

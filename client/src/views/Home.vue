@@ -109,7 +109,7 @@ export default {
       for (let i = 0; i < this.expensesRefactor.length; i++) {
         this.expensesSum += this.expensesRefactor[i]
       }
-      this.balance = this.expensesSum - this.incomesSum
+      this.balance = this.incomesSum - this.expensesSum 
       this.loading = false
       return request
     }

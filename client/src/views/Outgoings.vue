@@ -24,7 +24,7 @@
                   <div v-show='item.attributes.transactionType === "feeding"'>
                     <font-awesome-icon :icon="['fas', 'utensils']" size="lg" />
                   </div>
-                  <div v-show='item.attributes.transactionType === "transportaion"'>
+                  <div v-show='item.attributes.transactionType === "transportation"'>
                     <font-awesome-icon :icon="['fas', 'car']" size="lg" />
                   </div>
                   <div v-show='item.attributes.transactionType === "health"'>

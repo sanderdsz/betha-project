@@ -2,7 +2,7 @@
   <div class='container'>
    <div class='container__header'>
      <div class='container__title'>
-       <h1>Welcome</h1>
+       <h2>Welcome</h2>
      </div>
    </div>
     <div class='spinner' v-if="loading">
@@ -10,7 +10,7 @@
     </div>
     <div v-else>
       <div class='container__body'>
-        <div class='container__wrapper'>
+        <div class='container__wrapper' style='padding: 0;'>
           <div class='container__wrapper--center'>
             <h2 class='text--blue'>Your month now is...</h2>
           </div>
@@ -30,6 +30,35 @@
           <div class='card card--right text--red'>
             R$ {{ expensesSum }}
           </div>
+        </div>
+        <div class='board'>
+          <li class='board__body' v-for='item in sumArr' :key='item.value'>
+            <div v-show='item.type === "housing"'>
+              <font-awesome-icon :icon="['fas', 'house-user']" size="md" />
+            </div>
+            <div v-show='item.type === "leisure"'>
+              <font-awesome-icon :icon="['fas', 'laugh-beam']" size="md" />
+            </div>
+            <div v-show='item.type === "feeding"'>
+              <font-awesome-icon :icon="['fas', 'utensils']" size="md" />
+            </div>
+            <div v-show='item.type === "transportation"'>
+              <font-awesome-icon :icon="['fas', 'car']" size="md" />
+            </div>
+            <div v-show='item.type === "health"'>
+              <font-awesome-icon :icon="['fas', 'heartbeat']" size="md" />
+            </div>
+            <div v-show='item.type === "personal"'>
+              <font-awesome-icon :icon="['fas', 'user-lock']" size="md" />
+            </div>
+            <div v-show='item.type === "shopping"'>
+              <font-awesome-icon :icon="['fas', 'shopping-cart']" size="md" />
+            </div>
+            <div class='body__items'>
+              <h3>{{ item.percentage }} %</h3>
+              <span>R$ {{ item.value }}</span>
+            </div>
+          </li>
         </div>
       </div>
       <div class='total'>
@@ -61,18 +90,26 @@ export default {
       incomesSum: 0,
       expenses: {},
       personalExpenses: {},
+      personalSum: 0,
       healthExpenses: {},
+      healthSum: 0,
       feedingExpenses: {},
+      feedingSum: 0,
       leisureExpenses: {},
+      leisureSum: 0,
       housingExpenses: {},
+      housingSum: 0,
       shoppingExpenses: {},
+      shoppingSum: 0,
       transportationExpenses: {},
+      transportationSum: 0,
       expensesResponse: {},
       expensesRefactor: {},
       expensesSum: 0,
       balance: 0,
       loading: false,
-      month: ''
+      month: '',
+      sumArr: []
     }
   },
   methods: {
@@ -122,6 +159,7 @@ export default {
       return request
     },
     async getExpensesAndFilter () {
+      this.loading = true
       const today = new Date()
       const lastDayOfMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0).toISOString().split('T')[0]
       const firstDayOfMonth = new Date(today.getFullYear(), today.getMonth(), 1).toISOString().split('T')[0]
@@ -131,20 +169,21 @@ export default {
       .then(response => {
         this.expenses = response.data.data
         this.shoppingExpenses = this.expenses.filter(this.shoppingFilter)
+        this.shoppingSum = this.calculate(this.shoppingExpenses)
         this.transportationExpenses = this.expenses.filter(this.transportationFilter)
+        this.transportationSum = this.calculate(this.transportationExpenses)
         this.housingExpenses = this.expenses.filter(this.housingFilter)
+        this.housingSum = this.calculate(this.housingExpenses)
         this.leisureExpenses = this.expenses.filter(this.leisureFilter)
+        this.leisureSum = this.calculate(this.leisureExpenses)
         this.personalExpenses = this.expenses.filter(this.personalFilter)
+        this.personalSum = this.calculate(this.personalExpenses)
         this.healthExpenses = this.expenses.filter(this.healthFilter)
+        this.healthSum = this.calculate(this.healthExpenses)
         this.feedingExpenses = this.expenses.filter(this.feedingFilter)
-        console.log(this.shoppingExpenses)
-        console.log(this.transportationExpenses)
-        console.log(this.housingExpenses)
-        console.log(this.leisureExpenses)
-        console.log(this.personalExpenses)
-        console.log(this.healthExpenses)
-        console.log(this.feedingExpenses)
+        this.feedingSum = this.calculate(this.feedingExpenses)
       })
+      this.loading = false
     },
     shoppingFilter (value) {
       return value.attributes.transactionType === 'shopping'
@@ -166,6 +205,98 @@ export default {
     },
     feedingFilter (value) {
       return value.attributes.transactionType === 'feeding'
+    },
+    calculate (obj) {
+      if (obj[0].attributes.transactionType === 'shopping') {
+        this.shoppingSum = this.expenseMapper(obj)
+        this.sumArr.push({ 
+          value: this.expenseMapper(obj),
+          type: 'shopping',
+          percentage: ((this.shoppingSum / this.expensesSum) * 100).toFixed(1)
+        })
+        //this.sumArr['shopping'] = this.expenseMapper(obj)
+      }
+      if (obj[0].attributes.transactionType === 'transportation') {
+        this.transportationSum = this.expenseMapper(obj)
+        this.sumArr.push({ 
+          value: this.expenseMapper(obj),
+          type: 'transportation',
+          percentage: ((this.transportationSum / this.expensesSum) * 100).toFixed(1)
+        })
+        //this.sumArr['transportation'] = this.expenseMapper(obj)
+      }
+      if (obj[0].attributes.transactionType === 'housing') {
+        this.housingSum = this.expenseMapper(obj)
+        this.sumArr.push({ 
+          value: this.expenseMapper(obj),
+          type: 'housing',
+          percentage: ((this.housingSum / this.expensesSum) * 100).toFixed(1)
+        })
+        //this.sumArr['housing'] = this.expenseMapper(obj)
+      }
+      if (obj[0].attributes.transactionType === 'leisure') {
+        this.leisureSum = this.expenseMapper(obj)
+        this.sumArr.push({ 
+          value: this.expenseMapper(obj),
+          type: 'leisure',
+          percentage: ((this.leisureSum / this.expensesSum) * 100).toFixed(1)
+        })
+        //this.sumArr['leisure'] = this.expenseMapper(obj)
+      }
+      if (obj[0].attributes.transactionType === 'health') {
+        this.healthSum = this.expenseMapper(obj)
+        this.sumArr.push({ 
+          value: this.expenseMapper(obj),
+          type: 'health',
+          percentage: ((this.healthSum / this.expensesSum) * 100).toFixed(1)
+        })
+        //this.sumArr['health'] = this.expenseMapper(obj)
+      }
+      if (obj[0].attributes.transactionType === 'feeding') {
+        this.feedingSum = this.expenseMapper(obj)
+        this.sumArr.push({ 
+          value: this.expenseMapper(obj),
+          type: 'feeding',
+          percentage: ((this.feedingSum / this.expensesSum) * 100).toFixed(1)
+        })
+        //this.sumArr['feeding'] = this.expenseMapper(obj)
+      }
+      if (obj[0].attributes.transactionType === 'personal') {
+        this.personalSum = this.expenseMapper(obj)
+        //this.sumArr['personal'] = this.expenseMapper(obj)
+        this.sumArr.push({ 
+          value: this.expenseMapper(obj),
+          type: 'personal',
+          percentage: ((this.personalSum / this.expensesSum) * 100).toFixed(1)
+        })
+      }
+      this.sumArr.sort(this.sortBy('value', true, parseInt))
+      console.log(this.sumArr)
+    },
+    expenseMapper (obj) {
+      let objDecompiler = obj.map(
+        function (item) {
+          return item.attributes.value
+        }
+      )
+      var arraySumarizer = 0
+      for (let i = 0; i < objDecompiler.length; i++) {
+        arraySumarizer += objDecompiler[i]
+      }
+      return arraySumarizer
+    },
+    sortBy (field, reverse, primer) {
+      const key = primer ?
+      function(x) {
+        return primer(x[field])
+      } :
+      function(x) {
+        return x[field]
+      }
+      reverse = !reverse ? 1 : -1;
+      return function(a, b) {
+        return a = key(a), b = key(b), reverse * ((a > b) - (b > a))
+      }
     }
   },
   computed: {
@@ -184,6 +315,9 @@ export default {
 </script>
 
 <style scoped>
+ul, li {
+  list-style-type: none;
+}
 .container {
   background-color: #F7F5F3;
 }
@@ -204,12 +338,12 @@ export default {
   text-align: center;
 }
 .total {
-  padding-top: 1.5rem;
+  padding-top: .5rem;
   padding-bottom: 4rem;
   bottom: 0;
   width: 100%;
-  margin: 3rem 0 0 0;
-  height: 5rem;
+  margin: 1rem 0 0 0;
+  height: 1rem;
   background: linear-gradient(-60deg, #f2c4c4 50%, #e66c55 50%);
 }
 .total--left {
@@ -229,13 +363,34 @@ export default {
   width: 5rem;
   font-family: cooper-hewitt-medium;
   color: #fff;
-  font-size: 2.5rem;
+  font-size: 2rem;
   text-shadow: 0.2rem 0.2rem 0 #1e5d84;
 }
 .total__label {
-  margin-top: 1rem;
-  font-size: 2rem;
+  font-size: 1.75rem;
   color: #1e5d84;
   text-shadow: 0.2rem 0.2rem 0 #fff;
+}
+.board {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+  margin-left: 1rem;
+  margin-right: 1rem;
+  justify-content: center;
+}
+.board__body {
+  display: flex;
+  font-family: cooper-hewitt-medium;
+  color: #fff;
+  margin: .5rem;
+  padding: .5rem;
+  background-color: #1e5d84;
+  align-items: center;
+}
+.body__items {
+  margin-left: .5rem;
+  display: flex;
+  flex-direction: column;
 }
 </style>

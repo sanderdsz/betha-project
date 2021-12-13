@@ -95,8 +95,7 @@ export default {
   methods: {
    async getIncomes () {
       this.loading = true
-      //const request = await axios.get(`http://152.70.211.106:8080/api/outgoings?pagination[page]=${this.page}&pagination[pageSize]=${this.pageSize}&sort=date:desc`)
-      const request = await axios.get(`http://localhost:8080/api/outgoings?pagination[page]=${this.page}&pagination[pageSize]=${this.pageSize}&sort=date:desc`)
+      const request = await axios.get(`http://152.70.211.106:8080/api/outgoings?pagination[page]=${this.page}&pagination[pageSize]=${this.pageSize}&sort=date:desc`)
       .then(response => { 
         this.expenses = response.data.data  
         this.total = response.data.meta.pagination.total

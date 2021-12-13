@@ -10,7 +10,7 @@
     </div>
     <div v-else>
       <div class='container__body'>
-        <div class='container__wrapper' style='padding: 0;'>
+        <div class='container__wrapper'>
           <div class='container__wrapper--center'>
             <h2 class='text--blue'>Your month now is...</h2>
           </div>
@@ -325,7 +325,7 @@ ul, li {
   background-color: #FCE180;;
 }
 .container__title {
-  width: 9rem;
+  width: 7rem;
   padding: .75rem 0 0 .5rem;
   background-color: #fff;
   background-image: none;
@@ -338,11 +338,12 @@ ul, li {
   text-align: center;
 }
 .total {
-  padding-top: .5rem;
-  padding-bottom: 4rem;
+  display: flex;
+  padding-top: 2rem;
+  padding-bottom: 3.5rem;
   bottom: 0;
   width: 100%;
-  margin: 1rem 0 0 0;
+  margin: 4rem 0 0 0;
   height: 1rem;
   background: linear-gradient(-60deg, #f2c4c4 50%, #e66c55 50%);
 }
@@ -351,7 +352,7 @@ ul, li {
   display: flex;
 }
 .total--right {
-  padding: 0 0 0 13rem;
+  padding: 0 0 0 7rem;
 }
 .total__dollar {
   font-family: cooper-hewitt-medium;
@@ -374,16 +375,16 @@ ul, li {
 .board {
   display: flex;
   flex-wrap: wrap;
-  margin-top: 1rem;
-  margin-left: 1rem;
-  margin-right: 1rem;
+  margin-top: 1.5rem;
+  margin-left: .5rem;
+  margin-right: .5rem;
   justify-content: center;
 }
 .board__body {
   display: flex;
   font-family: cooper-hewitt-medium;
   color: #fff;
-  margin: .5rem;
+  margin: .25rem;
   padding: .5rem;
   background-color: #1e5d84;
   align-items: center;

@@ -117,7 +117,8 @@ export default {
       this.loading = true
       const dt = new Date()
       const currentMonth = dt.getMonth() + 1
-      const request = await axios.get("http://152.70.211.106:8080/api/incomes")
+      //const request = await axios.get("http://152.70.211.106:8080/api/incomes")
+      const request = await axios.get("http://localhost:8080/api/incomes")
       .then(response => this.incomesResponse = response.data.data)
       this.incomesRefactor = this.incomesResponse.map(
         function(item) {
@@ -139,7 +140,8 @@ export default {
       this.loading = true
       const dt = new Date()
       const currentMonth = dt.getMonth() + 1
-      const request = await axios.get("http://152.70.211.106:8080/api/outgoings")
+      //const request = await axios.get("http://152.70.211.106:8080/api/outgoings")
+      const request = await axios.get("http://localhost:8080/api/outgoings")
       .then(response => this.expensesResponse = response.data.data)
       this.expensesRefactor = this.expensesResponse.map(
         function(item) {

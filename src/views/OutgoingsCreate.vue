@@ -61,7 +61,8 @@ export default {
   methods: {
     async update() {
       let self = this
-      await axios.post("http://152.70.211.106:8080/api/outgoings", 
+      //await axios.post("http://152.70.211.106:8080/api/outgoings", 
+      await axios.post("http://localhost:8080/api/outgoings", 
         { data: { value: this.value, transactionType: this.transactionType, date: this.date }}
       )
       self.$router.push({path: '/outgoings'})

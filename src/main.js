@@ -15,7 +15,8 @@ import {
   faHeartbeat,
   faUserLock,
   faShoppingCart,
-  faCommentDollar
+  faCommentDollar,
+  faTrash
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { SetupCalendar, Calendar, DatePicker } from 'v-calendar';
@@ -35,7 +36,8 @@ library.add(
   faHeartbeat,
   faUserLock,
   faShoppingCart,
-  faCommentDollar
+  faCommentDollar,
+  faTrash
 );
 
 createApp(App)

@@ -48,6 +48,9 @@
                   <span>{{ item.attributes.transactionType }}</span>
                 </div>
                 -->
+                <button class='button button--red button__delete' @click.prevent='this.delete(item.id)'>  
+                  <font-awesome-icon :icon="['fas', 'trash']" size="lg" />
+                </button>
               </div>
             </li>
           </ul>
@@ -61,7 +64,7 @@
       </div>
       <div class='container__footer'>
         <div class='container__footer--right'>
-          <router-link class='button button--red' to='/outgoings/create'>create</router-link>
+          <router-link class='button button--red' to='/Outgoings/create'>create</router-link>
         </div>
       </div>
     </div>
@@ -73,7 +76,7 @@ import axios from 'axios'
 import Spinner from '../components/Spinner.vue'
 
 export default {
-  name: 'Incomes',
+  name: 'Outgoings',
   components: {
     Spinner
   },
@@ -93,7 +96,7 @@ export default {
     }
   },
   methods: {
-   async getIncomes () {
+   async getOutgoings () {
       this.loading = true
       const request = await axios.get(`http://152.70.211.106:8080/api/outgoings?pagination[page]=${this.page}&pagination[pageSize]=${this.pageSize}&sort=date:desc`)
       .then(response => { 
@@ -105,10 +108,20 @@ export default {
       this.loading = false
       return request
     },
+    async delete (id) {
+      this.loading = true
+      await axios.delete(`http://152.70.211.106:8080/api/outgoings/${id}`).then(
+        response => {
+          this.getOutgoings() 
+          this.loading = false 
+          return response
+        }
+      )
+    },
     goToPreviousPage () {
       if (this.page !== 1) {
         this.page = this.page - 1
-        this.getIncomes()
+        this.getOutgoings()
       }
     },
     goToFowardPage () {
@@ -116,11 +129,11 @@ export default {
         return null
       }
       this.page = this.page + 1
-      this.getIncomes()
+      this.getOutgoings()
     }
   },
   created () {
-    this.getIncomes()
+    this.getOutgoings()
   }
 }
 </script>

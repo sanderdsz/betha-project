@@ -271,7 +271,6 @@ export default {
         })
       }
       this.sumArr.sort(this.sortBy('value', true, parseInt))
-      console.log(this.sumArr)
     },
     expenseMapper (obj) {
       let objDecompiler = obj.map(

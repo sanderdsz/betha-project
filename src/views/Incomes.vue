@@ -28,6 +28,9 @@
                   </div>
                   <span>R$ {{ item.attributes.value }}</span>
                 </div>
+                <button class='button button--red button__delete' @click.prevent='this.delete(item.id)'>  
+                  <font-awesome-icon :icon="['fas', 'trash']" size="lg" />
+                </button>
               </div>
             </li>
           </ul>
@@ -80,7 +83,17 @@ export default {
       this.loading = false
       return request
     },
-  goToPreviousPage () {
+    async delete (id) {
+      this.loading = true
+      await axios.delete(`http://152.70.211.106:8080/api/incomes/${id}`).then(
+        response => {
+          this.getIncomes() 
+          this.loading = false 
+          return response
+        }
+      )
+    },
+    goToPreviousPage () {
       if (this.page !== 1) {
         this.page = this.page - 1
         this.getIncomes()

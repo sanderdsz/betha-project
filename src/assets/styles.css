@@ -146,6 +146,7 @@ h4 {
   background-color: #fbf8e9;
 }
 .list {
+  align-items: center;
   font-family: cooper-hewitt-medium;
   padding: .5rem;
   margin: 1rem;
@@ -206,4 +207,9 @@ h4 {
   display: flex;
   padding: 0 1rem 1rem 1rem;
   justify-content: space-between;
+}
+.button__delete {
+  margin-left: 11rem;
+  height: 2rem;
+  padding: .25rem;
 }
